@@ -44,11 +44,8 @@ with gr.Blocks(title="LanguageMentor 英语私教") as language_mentor_app:
         )
 
         gr.ChatInterface(
-            fn=handle_conversation, 
+            fn=handle_conversation,
             chatbot=conversation_chatbot,
-            retry_btn=None,
-            undo_btn=None,
-            clear_btn="清除历史记录",
             submit_btn="发送",
         )
 
@@ -65,9 +62,6 @@ with gr.Blocks(title="LanguageMentor 英语私教") as language_mentor_app:
             fn=handle_scenario,
             chatbot=scenario_chatbot,
             additional_inputs=scenario_dropdown,
-            retry_btn=None,
-            undo_btn=None,
-            clear_btn="清除历史记录",
             submit_btn="发送",
         )
 
