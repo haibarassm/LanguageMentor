@@ -1,0 +1,13 @@
+{
+  "model_provider": "siliconflow",
+  "ollama": {
+    "model": "llama3.1:8b",
+    "max_tokens": 8192,
+    "temperature": 0.8
+  },
+  "siliconflow": {
+    "model": "deepseek-ai/DeepSeek-V3.2",
+    "max_tokens": 8192,
+    "temperature": 0.8
+  }
+}
