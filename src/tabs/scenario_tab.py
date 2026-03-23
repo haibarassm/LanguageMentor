@@ -24,6 +24,8 @@ def get_page_desc(scenario):
 def handle_scenario(user_input, chat_history, scenario):
     if chat_history is None:
         chat_history = []
+    if scenario is None:
+        return chat_history + [{"role": "assistant", "content": "请先选择一个场景！"}], ""
     bot_message = agents[scenario].chat_with_history(user_input)
     LOG.info(f"[ChatBot]: {bot_message}")
     chat_history.append({"role": "user", "content": user_input})
@@ -32,6 +34,8 @@ def handle_scenario(user_input, chat_history, scenario):
 
 # 当场景选择变化时，更新场景介绍并重置聊天
 def update_scenario(scenario):
+    if scenario is None:
+        return "", []
     desc = get_page_desc(scenario)
     initial_message = agents[scenario].start_new_session()
     return desc, [{"role": "assistant", "content": initial_message}]

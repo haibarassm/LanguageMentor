@@ -1,4 +1,5 @@
 import json
+import os
 from abc import ABC, abstractmethod
 
 from langchain_ollama.chat_models import ChatOllama  # 导入 ChatOllama 模型
@@ -8,6 +9,9 @@ from langchain_core.runnables.history import RunnableWithMessageHistory  # 导�
 
 from .session_history import get_session_history  # 导入会话历史相关方法
 from utils.logger import LOG  # 导入日志工具
+
+# Ollama 服务地址，可通过环境变量配置
+OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 
 class AgentBase(ABC):
     """
@@ -54,8 +58,12 @@ class AgentBase(ABC):
             MessagesPlaceholder(variable_name="messages"),  # 消息占位符
         ])
 
+        # 打印 Ollama 连接信息用于调试
+        LOG.info(f"Connecting to Ollama at: {OLLAMA_BASE_URL}")
+
         # 初始化 ChatOllama 模型，配置参数
         self.chatbot = system_prompt | ChatOllama(
+            base_url=OLLAMA_BASE_URL,  # Ollama 服务地址
             model="llama3.1:8b",  # 使用的模型名称
             max_tokens=8192,  # 最大生成的 token 数
             temperature=0.8,  # 随机性配置

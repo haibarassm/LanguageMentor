@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  language-mentor:
+    build: .
+    ports:
+      - "7860:7860"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
